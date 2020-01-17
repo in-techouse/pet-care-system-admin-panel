@@ -19,10 +19,10 @@ router.get('/', function (req, res) {
 
 router.post('/login', function (req, res) {
   firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password).then(r => {
-    var id = email.replace("@", "-");
+    var id = req.body.email.replace("@", "-");
     id = id.replace(/\./g, "_");
 
-    firebase.database().ref().child("admin").child(id).once("value").then(data => {
+    firebase.database().ref().child("Admins").child(id).once("value").then(data => {
       if (data === null || data === undefined || data.val() === null || data.val() === undefined) {
         res.render('pages/login', { error: "You are not authorized to login here" });
       }
@@ -30,7 +30,7 @@ router.post('/login', function (req, res) {
         req.session.id=data.val().id;
         req.session.name=data.val().name;
         req.session.email=req.body.email; 
-        res.json("1");
+        res.redirect("/admin");                 
 
       }
 
