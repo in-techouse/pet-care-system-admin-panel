@@ -10,6 +10,20 @@ router.get('/addFood', function(req,res){
     res.render("pages/addFood") 
   });
 
+  router.post('/addFood', function(req,res){
+   // res.render("pages/addFood")
+   // res.json(req.body); 
+   let id = firebase.database().ref().child("Foods").push().key
+   let food={
+       id: id,
+       name: req.body.foodName,
+       quantity: req.body.foodQuantity,
+       type: req.body.foodType,
+       price: req.body.foodPrice,
+
+   };
+  });  
+
   router.get('/allFoods', function(req,res){
     res.render("pages/allFoods") 
   });
