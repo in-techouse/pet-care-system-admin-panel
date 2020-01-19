@@ -7,25 +7,34 @@ router.get('/', function(req,res){
 });
 
 router.get('/addFood', function(req,res){
-    res.render("pages/addFood") 
+    res.render("pages/addFood"); 
   });
 
   router.post('/addFood', function(req,res){
    // res.render("pages/addFood")
    // res.json(req.body); 
    let id = firebase.database().ref().child("Foods").push().key
-   let food={
+   let food = {
        id: id,
        name: req.body.foodName,
        quantity: req.body.foodQuantity,
        type: req.body.foodType,
        price: req.body.foodPrice,
-
    };
+   firebase.database().ref().child("Foods").child(food.id).set(food).then(d=>{
+    res.redirect('/admin/allFoods');       
+   }).catch(er=>{
+    res.render("pages/addFood"); 
+   });
   });  
 
   router.get('/allFoods', function(req,res){
-    res.render("pages/allFoods") 
+    firebase.database().ref().child("Foods").orderByKey().once('value').then(d=>{
+      res.render("pages/allFoods", {data: d});       
+    }).catch(e=>{
+        res.render("pages/allFoods", {data: []}); 
+    });
+    
   });
 
   router.get('/foodDetail', function(req,res){

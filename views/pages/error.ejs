@@ -1,9 +1,13 @@
 <% extend ('../layout')%>
-<div class="jumbotron">
-  <div class="row">
-    <h2><%= message %></h2>
-    <h3><%= error.status %></h3>
-    <pre><%= error.stack %></pre>
+<div id="page-wrapper">
+  <div id="page-inner">
+    <div class="jumbotron">
+      <div class="row">
+        <h2><%= message %></h2>
+        <h3><%= error.status %></h3>
+        <pre><%= error.stack %></pre>
 
+      </div>
+    </div>
   </div>
 </div>
