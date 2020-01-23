@@ -4,8 +4,7 @@
     <div id="page-inner">
         <div class="row">
             <div class="col-md-12">
-                <h2>New Food Item</h2>
-                <h5>Add a new Food Item. </h5>
+                <h2>Edit Food Item</h2>
 
             </div>
         </div>
@@ -19,19 +18,19 @@
                         Food Element
                     </div>
                     <div class="panel-body">
-                        <form role="form" method="POST" action="/admin/addFood"  >
+                        <form role="form" method="POST" action="/admin/editfood"  >
                             <div class="row">
                                 <!-- Left Side -->
                                 <div class="col-md-6">
 
                                     <div class="form-group">
                                         <label>Food Name</label>
-                                        <input class="form-control" name="foodName" required type="text"/>
+                                        <input class="form-control" name="foodName" value="<%= d.val().name %>" required type="text"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label> Food Quantity </label>
-                                        <input class="form-control" name="foodQuantity" required type="number"/>
+                                        <input class="form-control" name="foodQuantity" value="<%= d.val().quantity %>" required type="number"/>
                                     </div>
                                     
                                     
@@ -42,22 +41,39 @@
                                     <div class="form-group">
                                         <label>Food Type</label>
                                         <select name="foodType" class="from-control">
-                                            <option value="Dog Food">Dog Food</option>
-                                            <option value="Cat Food">Cat Food</option>
-                                            <option value="Fish Food">Fish Food</option>
+                                            
+
+                                            <% if ( d.val().type == "Dog Food"){%>
+                                                <option value="Dog Food" selected >Dog Food</option>
+                                                <%} else {%>
+                                                    <option value="Dog Food">Dog Food</option>
+                                                <%}%>
+                                            <% if ( d.val().type == "Cat Food"){%>
+                                                <option value="Cat Food" selected >Cat Food</option>
+                                                <%} else {%>
+                                                    <option value="Cat Food">Cat Food</option>
+                                                <%}%>
+                                            <% if ( d.val().type == "Fish Food"){%>
+                                                <option value="Fish Food" selected >Fish Food</option>
+                                                <%} else {%>
+                                                    <option value="Fish Food">Fish Food</option>
+                                                <%}%>
+
+
                                         </select>
                                         <!-- <input class="form-control" name="foodType" required/> -->
                                     </div>
 
                                     <div class="form-group">
                                         <label> Food Price </label>
-                                        <input type="number" class="form-control" name="foodPrice" required/>
+                                        <input type="number" class="form-control" value="<%= d.val().price %>" name="foodPrice" required/>
+                                        <input type="hidden" name="id" value="<%= d.val().id %>">
                                     </div>
 
                                 </div>
 
                             </div>
-                            <input type="submit" value="SAVE" class="btn btn-block btn-primary" required/>
+                            <input type="submit" value="UPDATE" class="btn btn-block btn-primary" />
                         </form>
                     </div>
                 </div>

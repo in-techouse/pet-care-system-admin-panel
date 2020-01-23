@@ -1,1 +1,31 @@
 <% extend ('../layout')%>
+<div id="page-wrapper">
+    <div id="page-inner">
+<div class="row" style="padding:20px">
+    <div class="col-md-12">
+        <div class="panel box-v1">
+            <div class="panel-heading  border-none">
+                <div class="col-md-12 text-left padding-0">
+                    <h1 class="text-left">Food Detail</h1>
+                </div>
+
+            </div>
+            <div class="panel-body text-left" style="padding-top: 10px ;">
+                <h3>Name</h3>
+                <h4> <%= d.val().name%></h4>
+                <hr />
+                <h3>Type</h3>
+                <h4> <%= d.val().type%></h4>
+                <hr />
+                <h3>Quantity</h3>
+                <h4> <%= d.val().quanitity%></h4>
+                <hr />
+                <h3>Price</h3>
+                <h4> <%= d.val().price%>$</h4>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
