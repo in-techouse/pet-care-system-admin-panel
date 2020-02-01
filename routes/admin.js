@@ -143,4 +143,55 @@ router.get("/allusers", function(req,res){
 
 });
 
+
+router.get("/addClinic", function(req, res) {
+  res.render("pages/addClinic");
+});
+
+router.post("/addClinic", function(req, res) {
+  // res.render("pages/addClinic")
+  // res.json(req.body);
+  let id = firebase
+    .database()
+    .ref()
+    .child("Clinics")
+    .push().key;
+  let clinic = {
+    id: id,
+    name: req.body.clinicName,
+    address: req.body.clinicAddress,
+    startTiming: req.body.clinicStartTimings,
+    endTiming: req.body.clinicEndTimings,
+    fee: req.body.clinicFee,
+    number: req.body.clinicPhoneNumber
+  };
+  firebase
+  .database()
+  .ref()
+  .child("Clinics")
+  .child(clinic.id)
+  .set(clinic)
+  .then(d => {
+    res.redirect("/admin/allClinics");
+  })
+  .catch(er => {
+    res.render("pages/addClinc");
+  });
+});
+
+router.get("/allClinics", function(req, res) {
+firebase
+  .database()
+  .ref()
+  .child("Clinics")
+  .orderByKey()
+  .once("value")
+  .then(d => {
+    res.render("pages/allClinics", { data: d });
+  })
+  .catch(e => {
+    res.render("pages/allClinics", { data: [] });
+  });
+});
+
 module.exports = router;

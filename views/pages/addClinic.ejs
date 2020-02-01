@@ -1,0 +1,73 @@
+<% extend ('../layout')%>
+
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>New Clinic</h2>
+                <h5>Add a new Clinic. </h5>
+
+            </div>
+        </div>
+        <!-- /. ROW  -->
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Form Elements -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Clinic 
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="POST" action="/admin/addClinic"  >
+                            <div class="row">
+                                <!-- Left Side -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Clinic Name</label>
+                                        <input class="form-control" name="clinicName" required type="text"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Clinic Start Timings</label>
+                                        <input class="form-control" name="clinicStartTimings" required type="time" />                                
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Clinic Fee </label>
+                                        <input type="number" class="form-control" name="clinicFee" required/>
+                                    </div>
+                                    
+                                </div>
+
+                                <!-- Right Side -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label> Clinic Address </label>
+                                        <input class="form-control" name="clinicAddress" required type="text"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Clinic End Timings</label>
+                                        <input class="form-control" name="clinicEndTimings" required type="time" />                                
+                                    </div>
+                                    <div class="form-group">
+                                        <label> Clinic Phone Number </label>
+                                        <input type="number" class="form-control" name="clinicPhoneNumber" required type="number"/>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <input type="submit" value="SAVE" class="btn btn-block btn-primary" required/>
+                        </form>
+                    </div>
+                </div>
+                <!-- End Form Elements -->
+            </div>
+        </div>
+    </div>
+    <!-- /. PAGE INNER  -->
+</div>

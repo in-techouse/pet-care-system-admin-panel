@@ -1,0 +1,50 @@
+<% extend ('../layout')%>
+<div id="page-wrapper">
+    <div id="page-inner">
+        <!-- Start from here -->
+        <!-- <div class="container"> -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                All Clinics
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Start Timing</th>
+                                <th>End Timing</th>
+                                <th>Clinic Fee</th>
+                                <th>Clinic Phone Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <% data.forEach(d=> { %>
+                                <tr>
+                                    
+                                    <td><%= d.val().name %></td> 
+                                    <td><%= d.val().address %></td>
+                                   <td><%= d.val().startTiming %></td>
+                                   <td><%= d.val().endTiming %></td>
+                                   <td><%= d.val().fee %>$</td>
+                                   <td><%= d.val().number %></td>
+                                   <td><a href="/admin/editclinic?id=<%= d.val().id %>" class="btn btn-warning">Edit</a></td>
+                                   <td><a href="/admin/clinic?id=<%= d.val().id %>" class="btn btn-primary">Details</a></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!--End Advanced Tables -->
+    </div>
+</div>
+</div>
+</div>
