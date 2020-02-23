@@ -1,0 +1,88 @@
+<% extend ('../../layout')%>
+
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Edit Food Item</h2>
+                <h5>Edit a Food Item. </h5>
+
+            </div>
+        </div>
+        <!-- /. ROW  -->
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Form Elements -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Food Element
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="POST" action="/admin/editFood">
+                            <div class="row">
+                                <%- include('./imageShared')%>
+
+                                <input value="<%= d.val().id %>" class="form-control" name="id" required
+                                    type="hidden" />
+
+                                <!-- Left Side -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Food Name</label>
+                                        <input value="<%= d.val().name %>" class="form-control" name="foodName" required
+                                            type="text" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Food Quantity (Stock) </label>
+                                        <input value="<%= d.val().quantity %>" class="form-control" name="foodQuantity"
+                                            required type="number" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Weight of Food (Specify weight & unit both. e.g. '10 GM', '2 KG')
+                                        </label>
+                                        <input value="<%= d.val().weight %>" class="form-control" name="foodWeight"
+                                            required type="text" />
+                                    </div>
+
+
+                                </div>
+                                <!-- Right Side -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Food Type <%= d.val().type %></label>
+                                        <select name="foodType" class="form-control" required>
+                                            <option value="Dog Food"
+                                                <%= d.val().type === 'Dog Food' ? 'selected' : '' %>>Dog Food</option>
+                                            <option value="Cat Food"
+                                                <%= d.val().type === 'Cat Food' ? 'selected' : '' %>>Cat Food
+                                            </option>
+                                            <option value="Fish Food"
+                                                <%= d.val().type === 'Fish Food' ? 'selected' : '' %>>Fish Food
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label> Food Price </label>
+                                        <input value="<%= d.val().price %>" type="number" class="form-control"
+                                            name="foodPrice" required />
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <input id="submit" type="submit" value="SAVE" class="btn btn-block btn-primary" required />
+                        </form>
+                    </div>
+                </div>
+                <!-- End Form Elements -->
+            </div>
+        </div>
+    </div>
+    <!-- /. PAGE INNER  -->
+</div>

@@ -1,0 +1,47 @@
+<% extend ('../../layout')%>
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Form Elements -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Clinic Detail
+                    </div>
+                    <div class="panel-body">
+                        <!-- <div class="row"> -->
+                        <div class="col-md-6">
+                            <img src="<%= d.val().image %>" class="img-responsive img-thumbnail" />
+                        </div>
+                        <div class="col-md-6">
+                            <h2><%= d.val().name %></h2>
+                            <p><%= d.val().address %></p>
+                            <div class="container-fluid">
+                                <label class="valueLabel"><b>Clinic Opening Time</b></label>
+                                <label class="value"><%= d.val().startTiming%></label>
+                            </div>
+                            <div class="container-fluid">
+                                <label class="valueLabel"><b>Clinic Closing Time</b></label>
+                                <label class="value"><%= d.val().endTiming%></label>
+                            </div>
+                            <div class="container-fluid">
+                                <label class="valueLabel"><b>Visit Feee</b></label>
+                                <label class="value"><%= d.val().fee%> PKR</label>
+                            </div>
+                            <div class="container-fluid">
+                                <label class="valueLabel"><b>Contact Numebr</b></label>
+                                <label class="value"><%= d.val().number %></label>
+                            </div>
+                            <div class="container-fluid" style="margin-top: 40px;">
+                                <a href="/admin/editClinic?id=<%= d.val().id %>"
+                                    class="btn btn-warning btn-block">Edit</a>
+                            </div>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <!-- End Form Elements -->
+            </div>
+        </div>
+    </div>
+</div>

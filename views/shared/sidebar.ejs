@@ -6,44 +6,76 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Pet Care System</a>
+        <a class="navbar-brand" href="/admin">Pet Care System</a>
     </div>
     <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-danger square-btn-adjust">Logout</a>
+font-size: 16px;">
+        <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
     </div>
 </nav>
 <!-- /. NAV TOP  -->
 <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
-            <li class="text-center">
-                <img src="/public/img/find_user.png" class="user-image img-responsive" />
+            <li class="text-center"></li>
+            <li>
+                <a class="<%= action === "dashboard" ? "active-menu" : "" %>" href="/admin"><i
+                        class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+            </li>
+            <li>
+                <a class="<%= action.indexOf('Food') > -1 ? 'active-menu' : '' %>" href="#"><i
+                        class="fa fa-bone fa-3x"></i> FOOD<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level <%= action.indexOf('Food') > -1 ? 'in' : '' %>">
+                    <li>
+                        <a class="<%= action === "addFood" ? "active-menu" : "" %>" href="/admin/addFood">Add New
+                            Food</a>
+                    </li>
+                    <li>
+                        <a class="<%= action === "allFood" ? "active-menu" : "" %>" href="/admin/allFoods">All Food
+                            Items</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="<%= action.indexOf('Clinic') > -1 ? 'active-menu' : '' %>" href="#"><i
+                        class="fa fa-hospital fa-3x"></i> CLINIC<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level <%= action.indexOf('Clinic') > -1 ? 'in' : '' %>">
+                    <li>
+                        <a class="<%= action === "addClinic" ? "active-menu" : "" %>" href="/admin/addClinic">Add New
+                            Clinic</a>
+                    </li>
+                    <li>
+                        <a class="<%= action === "allClinics" ? "active-menu" : "" %>" href="/admin/allClinics">All
+                            Clinics</a>
+                    </li>
+                </ul>
             </li>
 
             <li>
-                <a class="active-menu" href="/admin"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href="/admin/addFood"><i class="fa fa-desktop fa-3x"></i> Add Food</a>
-            </li>
-            <li>
-                <a href="/admin/allFoods"><i class="fa fa-qrcode fa-3x"></i> All Foods</a>
-            </li>
-            <li>
-                <a href="/admin/addClinic"><i class="fa fa-desktop fa-3x"></i> Add Clinic</a>
-            </li>
-            <li>
-                <a href="/admin/allClinics"><i class="fa fa-qrcode fa-3x"></i> All Clinics</a>
-            </li>
-        
-            <li>
-                <a href="/admin/allOrders"><i class="fa fa-table fa-3x"></i> All Orders</a>
+                <a class="<%= action.indexOf('allDC') > -1 ? 'active-menu' : '' %>" href="#"><i
+                        class="fa fa-users fa-3x"></i> USERS<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level <%= action.indexOf('allDC') > -1 ? 'in' : '' %>">
+                    <li>
+                        <a class="<%= action === "allDCCustomers" ? "active-menu" : "" %>"
+                            href="/admin/allCustomers">All Customers</a>
+                    </li>
+                    <li>
+                        <a class="<%= action === "allDCDoctors" ? "active-menu" : "" %>" href="/admin/allDoctors">All
+                            Doctors</a>
+                    </li>
+                </ul>
             </li>
 
             <li>
-                <a href="/admin/allAppointments"><i class="fa fa-edit fa-3x"></i> All Appointments </a>
+                <a class="<%= action === "allOrders" ? "active-menu" : "" %>" href="/admin/allOrders"><i
+                        class="fa fa-cart-plus fa-3x"></i> All Orders</a>
+            </li>
+
+            <li>
+                <a class="<%= action === "allAppointments" ? "active-menu" : "" %>" href="/admin/allAppointments"><i
+                        class="fa fa-object-group fa-3x"></i> All Appointments </a>
             </li>
 
         </ul>

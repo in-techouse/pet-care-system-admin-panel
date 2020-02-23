@@ -1,0 +1,43 @@
+<% extend ('../../layout')%>
+
+<div id="page-wrapper">
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>All Users</h1>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Image</td>
+                            <td>Email</td>
+                            <td>First Name</td>
+                            <td>Last Name</td>
+                            <td>Phone Number</td>
+                            <td>Qualification</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%d.forEach(a => {%>
+                        <tr>
+                            <td>
+                                <% if (a.val().image !== null && a.val().image !== undefined && a.val().image.length > 0){ %>
+                                <img src="<%=a.val().image%>" class="img-thumbnail img-circle"
+                                    style="width: 80px; height: 80px;" />
+                                <% } else {%>
+                                <img src="/public/img/find_user.png" class="img-thumbnail img-circle"
+                                    style="width: 80px; height: 80px;" />
+                                <% } %>
+                            </td>
+                            <td><%=a.val().email%></td>
+                            <td><%=a.val().firstName%></td>
+                            <td><%=a.val().lastName%></td>
+                            <td><%=a.val().phNo%></td>
+                            <td><%=a.val().qualification%></td>
+                        </tr>
+                        <%});%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

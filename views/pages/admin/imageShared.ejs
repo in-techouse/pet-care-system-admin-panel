@@ -1,0 +1,47 @@
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <% if (d === null || d === undefined) {%>
+            <img id="showFile" class="img-responsive" />
+            <input id="imageURL" type="hidden" name="imageURL" required class="form-control" />
+            <label>Choose an image</label>
+            <input type="file" class="form-control" id="selectImage" accept="image/*" required />
+            <%  } else {%>
+            <img id="showFile" class="img-responsive img-thumbnail" src="<%= d.val().image%>" />
+            <input value="<%= d.val().image %>" id="imageURL" type="hidden" name="imageURL" required
+                class="form-control" />
+            <label>Choose an image</label>
+            <input type="file" class="form-control" id="selectImage" accept="image/*" />
+            <% } %>
+            <br />
+            <p class="btn btn-sm btn-success" id="upload" style="float: right; display: none;">UPLOAD IMAGE</p>
+            <br /><br />
+            <div class="progress" style="display: none;" id="progress">
+                <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#showFile').attr('src', e.target.result);
+                $("#upload").show(400);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#selectImage").change(function () {
+        $("#submit").prop("disabled", true);
+        readURL(this);
+    });
+</script>

@@ -3,16 +3,23 @@ var router = express.Router();
 var firebase = require("firebase");
 
 router.get("/", function(req, res) {
-  res.render("pages/index");
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+  res.render("pages/admin/index", { action: "dashboard" });
 });
 
 router.get("/addFood", function(req, res) {
-  res.render("pages/addFood");
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+  res.render("pages/admin/addFood", { action: "addFood", d: null });
 });
 
 router.post("/addFood", function(req, res) {
-  // res.render("pages/addFood")
-  // res.json(req.body);
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
   let id = firebase
     .database()
     .ref()
@@ -21,9 +28,11 @@ router.post("/addFood", function(req, res) {
   let food = {
     id: id,
     name: req.body.foodName,
-    quantity: req.body.foodQuantity,
+    quantity: parseInt(req.body.foodQuantity),
     type: req.body.foodType,
-    price: req.body.foodPrice
+    price: parseInt(req.body.foodPrice),
+    weight: req.body.foodWeight,
+    image: req.body.imageURL
   };
   firebase
     .database()
@@ -35,11 +44,14 @@ router.post("/addFood", function(req, res) {
       res.redirect("/admin/allFoods");
     })
     .catch(er => {
-      res.render("pages/addFood");
+      res.render("pages/admin/addFood", { action: "addFood", d: null });
     });
 });
 
 router.get("/allFoods", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
   firebase
     .database()
     .ref()
@@ -47,39 +59,66 @@ router.get("/allFoods", function(req, res) {
     .orderByKey()
     .once("value")
     .then(d => {
-      res.render("pages/allFoods", { data: d });
+      res.render("pages/admin/allFoods", { data: d, action: "allFood" });
     })
     .catch(e => {
-      res.render("pages/allFoods", { data: [] });
+      res.render("pages/admin/allFoods", { data: [], action: "allFood" });
     });
 });
 
-router.get("/editfood", function(req, res) {
-
-  let id = 0;
-  let d = [];
-  id = req.query.id;
-  firebase.database().ref().child('Foods').child(id).once('value')
-  .then(data=>{
-    d = data;
-    res.render("pages/editfood", {d : d});
-  })
-  .catch(eror=>{
-    res.json(error);
-  })
-
+router.get("/foodDetail", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+  let id = req.query.id;
+  firebase
+    .database()
+    .ref()
+    .child("Foods")
+    .child(id)
+    .once("value")
+    .then(data => {
+      let d = data;
+      res.render("pages/admin/foodDetail", { d: d, action: "foodDetail" });
+    })
+    .catch(eror => {
+      res.redirect("/admin/allFood");
+    });
 });
 
-router.post("/editfood", function(req,res){
+router.get("/editFood", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+  let id = req.query.id;
+  firebase
+    .database()
+    .ref()
+    .child("Foods")
+    .child(id)
+    .once("value")
+    .then(data => {
+      let d = data;
+      res.render("pages/admin/editFood", { d: d, action: "editFood" });
+    })
+    .catch(eror => {
+      res.redirect("/admin/allFoods");
+    });
+});
 
+router.post("/editFood", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
   let food = {
     id: req.body.id,
     name: req.body.foodName,
-    quantity: req.body.foodQuantity,
+    quantity: parseInt(req.body.foodQuantity),
     type: req.body.foodType,
-    price: req.body.foodPrice
+    price: parseInt(req.body.foodPrice),
+    weight: req.body.foodWeight,
+    image: req.body.imageURL
   };
-
   firebase
     .database()
     .ref()
@@ -90,67 +129,22 @@ router.post("/editfood", function(req,res){
       res.redirect("/admin/allFoods");
     })
     .catch(er => {
-      res.render("pages/addFood");
+      res.redirect("/admin/allFoods");
     });
 });
-
-router.get("/fooddetail", function(req, res) {
-  let id = 0;
-  let d = [];
-  id = req.query.id;
-  firebase.database().ref().child('Foods').child(id).once('value')
-  .then(data=>{
-    d = data;
-    // res.json(d);
-    res.render("pages/foodDetail", {d : d});
-  })
-  .catch(eror=>{
-    res.json(error);
-  })
-});
-
-router.get("/allOrders", function(req, res) {
-  res.render("pages/allOrders");
-});
-
-router.get("/orderDetail", function(req, res) {
-  res.render("pages/orderDetail");
-});
-
-router.get("/allAppointments", function(req, res) {
-  res.render("pages/allAppointments");
-});
-
-router.get("/appointmentDetails", function(req, res) {
-  res.render("pages/appointmentDetails");
-});
-
-router.get("/allusers", function(req,res){
-
-  firebase
-    .database()
-    .ref()
-    .child("Users")
-    .orderByKey()
-    .once("value")
-    .then(d => {
-      // res.json(d);
-      res.render("pages/allusers", { d : d });
-    })
-    .catch(e => {
-      res.render("pages/allusers", { data: [] });
-    });
-
-});
-
 
 router.get("/addClinic", function(req, res) {
-  res.render("pages/addClinic");
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+
+  res.render("pages/admin/addClinic", { action: "addClinic", d: null });
 });
 
 router.post("/addClinic", function(req, res) {
-  // res.render("pages/addClinic")
-  // res.json(req.body);
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
   let id = firebase
     .database()
     .ref()
@@ -162,36 +156,165 @@ router.post("/addClinic", function(req, res) {
     address: req.body.clinicAddress,
     startTiming: req.body.clinicStartTimings,
     endTiming: req.body.clinicEndTimings,
-    fee: req.body.clinicFee,
-    number: req.body.clinicPhoneNumber
+    fee: parseInt(req.body.clinicFee),
+    number: req.body.clinicPhoneNumber,
+    image: req.body.imageURL
   };
   firebase
-  .database()
-  .ref()
-  .child("Clinics")
-  .child(clinic.id)
-  .set(clinic)
-  .then(d => {
-    res.redirect("/admin/allClinics");
-  })
-  .catch(er => {
-    res.render("pages/addClinc");
-  });
+    .database()
+    .ref()
+    .child("Clinics")
+    .child(clinic.id)
+    .set(clinic)
+    .then(d => {
+      res.redirect("/admin/allClinics");
+    })
+    .catch(er => {
+      res.render("pages/admin/addClinic", { action: "addClinic", d: null });
+    });
 });
 
 router.get("/allClinics", function(req, res) {
-firebase
-  .database()
-  .ref()
-  .child("Clinics")
-  .orderByKey()
-  .once("value")
-  .then(d => {
-    res.render("pages/allClinics", { data: d });
-  })
-  .catch(e => {
-    res.render("pages/allClinics", { data: [] });
-  });
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+  firebase
+    .database()
+    .ref()
+    .child("Clinics")
+    .orderByKey()
+    .once("value")
+    .then(d => {
+      res.render("pages/admin/allClinics", { data: d, action: "allClinics" });
+    })
+    .catch(e => {
+      res.render("pages/admin/allClinics", { data: [], action: "allClinics" });
+    });
+});
+
+router.get("/clinicDetail", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+  firebase
+    .database()
+    .ref()
+    .child("Clinics")
+    .child(req.query.id)
+    .once("value")
+    .then(d => {
+      res.render("pages/admin/clinicDetail", { d: d, action: "clinicDetail" });
+    })
+    .catch(e => {
+      res.redirect("/admin/allClinics");
+    });
+});
+
+router.get("/editClinic", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+  firebase
+    .database()
+    .ref()
+    .child("Clinics")
+    .child(req.query.id)
+    .once("value")
+    .then(d => {
+      res.render("pages/admin/editClinic", { d: d, action: "editClinic" });
+    })
+    .catch(e => {
+      res.redirect("/admin/allClinics");
+    });
+});
+
+router.post("/editClinic", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+  let clinic = {
+    id: req.body.id,
+    name: req.body.clinicName,
+    address: req.body.clinicAddress,
+    startTiming: req.body.clinicStartTimings,
+    endTiming: req.body.clinicEndTimings,
+    fee: parseInt(req.body.clinicFee),
+    number: req.body.clinicPhoneNumber,
+    image: req.body.imageURL
+  };
+  firebase
+    .database()
+    .ref()
+    .child("Clinics")
+    .child(clinic.id)
+    .set(clinic)
+    .then(d => {
+      res.redirect("/admin/allClinics");
+    })
+    .catch(e => {
+      res.redirect("/admin/allClinics");
+    });
+});
+
+router.get("/allCustomers", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+
+  firebase
+    .database()
+    .ref()
+    .child("Users")
+    .orderByChild("role")
+    .equalTo(0)
+    .once("value")
+    .then(d => {
+      res.render("pages/admin/allCustomers", {
+        d: d,
+        action: "allDCCcustomers"
+      });
+    })
+    .catch(e => {
+      res.render("pages/admin/allCustomers", {
+        d: [],
+        action: "allDCCcustomers"
+      });
+    });
+});
+
+router.get("/allDoctors", function(req, res) {
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+
+  firebase
+    .database()
+    .ref()
+    .child("Users")
+    .orderByChild("role")
+    .equalTo(1)
+    .once("value")
+    .then(d => {
+      res.render("pages/admin/allDoctors", { d: d, action: "allDCDoctors" });
+    })
+    .catch(e => {
+      res.render("pages/admin/allDoctors", { d: [], action: "allDCDoctors" });
+    });
+});
+router.get("/allOrders", function(req, res) {
+  res.render("pages/admin/allOrders", { action: "allOrders" });
+});
+
+router.get("/orderDetail", function(req, res) {
+  res.render("pages/admin/orderDetail", { action: "" });
+});
+
+router.get("/allAppointments", function(req, res) {
+  res.render("pages/admin/allAppointments", { action: "allAppointments" });
+});
+
+router.get("/appointmentDetail", function(req, res) {
+  res.render("pages/admin/appointmentDetail", { action: "" });
 });
 
 module.exports = router;
