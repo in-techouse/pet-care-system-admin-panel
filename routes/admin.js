@@ -266,7 +266,7 @@ router.get("/allCustomers", function(req, res) {
     .ref()
     .child("Users")
     .orderByChild("role")
-    .equalTo(0)
+    .equalTo(1)
     .once("value")
     .then(d => {
       res.render("pages/admin/allCustomers", {
@@ -292,7 +292,7 @@ router.get("/allDoctors", function(req, res) {
     .ref()
     .child("Users")
     .orderByChild("role")
-    .equalTo(1)
+    .equalTo(2)
     .once("value")
     .then(d => {
       res.render("pages/admin/allDoctors", { d: d, action: "allDCDoctors" });

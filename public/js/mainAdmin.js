@@ -29,7 +29,7 @@ function loadDashboarData() {
       $("#users").html(users.numChildren());
       let doctors = 0;
       users.forEach(u => {
-        if (u.val().role === 1) {
+        if (u.val().role === 2) {
           doctors++;
         }
       });
