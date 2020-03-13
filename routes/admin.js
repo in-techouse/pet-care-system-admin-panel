@@ -3,23 +3,23 @@ var router = express.Router();
 var firebase = require("firebase");
 
 router.get("/", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   res.render("pages/admin/index", { action: "dashboard" });
 });
 
 router.get("/addFood", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   res.render("pages/admin/addFood", { action: "addFood", d: null });
 });
 
 router.post("/addFood", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   let id = firebase
     .database()
     .ref()
@@ -49,9 +49,9 @@ router.post("/addFood", function(req, res) {
 });
 
 router.get("/allFoods", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   firebase
     .database()
     .ref()
@@ -67,9 +67,9 @@ router.get("/allFoods", function(req, res) {
 });
 
 router.get("/foodDetail", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   let id = req.query.id;
   firebase
     .database()
@@ -87,9 +87,9 @@ router.get("/foodDetail", function(req, res) {
 });
 
 router.get("/editFood", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   let id = req.query.id;
   firebase
     .database()
@@ -107,9 +107,9 @@ router.get("/editFood", function(req, res) {
 });
 
 router.post("/editFood", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   let food = {
     id: req.body.id,
     name: req.body.foodName,
@@ -134,17 +134,16 @@ router.post("/editFood", function(req, res) {
 });
 
 router.get("/addClinic", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
-
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   res.render("pages/admin/addClinic", { action: "addClinic", d: null });
 });
 
 router.post("/addClinic", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   let id = firebase
     .database()
     .ref()
@@ -175,9 +174,9 @@ router.post("/addClinic", function(req, res) {
 });
 
 router.get("/allClinics", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   firebase
     .database()
     .ref()
@@ -193,9 +192,9 @@ router.get("/allClinics", function(req, res) {
 });
 
 router.get("/clinicDetail", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   firebase
     .database()
     .ref()
@@ -211,9 +210,9 @@ router.get("/clinicDetail", function(req, res) {
 });
 
 router.get("/editClinic", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   firebase
     .database()
     .ref()
@@ -229,9 +228,9 @@ router.get("/editClinic", function(req, res) {
 });
 
 router.post("/editClinic", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   let clinic = {
     id: req.body.id,
     name: req.body.clinicName,
@@ -257,10 +256,9 @@ router.post("/editClinic", function(req, res) {
 });
 
 router.get("/allCustomers", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
-
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   firebase
     .database()
     .ref()
@@ -283,10 +281,9 @@ router.get("/allCustomers", function(req, res) {
 });
 
 router.get("/allDoctors", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
-
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   firebase
     .database()
     .ref()
@@ -302,10 +299,9 @@ router.get("/allDoctors", function(req, res) {
     });
 });
 router.get("/allOrders", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
-
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   firebase
     .database()
     .ref()
@@ -320,10 +316,9 @@ router.get("/allOrders", function(req, res) {
 });
 
 router.get("/orderDetail", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
-
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
   firebase
     .database()
     .ref()
@@ -361,10 +356,6 @@ router.get("/orderDetail", function(req, res) {
 });
 
 router.get("/allAppointments", function(req, res) {
-  // if (!req.session.isAdmin) {
-  //   res.redirect("/");
-  // }
-
   firebase
     .database()
     .ref()
@@ -385,6 +376,10 @@ router.get("/allAppointments", function(req, res) {
 });
 
 router.get("/appointmentDetail", function(req, res) {
+  if (!req.session.isAdmin) {
+    res.redirect("/");
+  }
+
   firebase
     .database()
     .ref()
