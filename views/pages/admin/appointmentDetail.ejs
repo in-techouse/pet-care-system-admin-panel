@@ -9,6 +9,95 @@
                         Appointment Detail
                     </div>
                     <div class="panel-body">
+                        <h2>APPOINTMENT DETAILS</h2>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="valueLabel"><b>DATE:</b></label>
+                                <label class="value"><%= data.val().date %></label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="valueLabel"><b>TIME:</b></label>
+                                <label class="value"><%= data.val().time %></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="valueLabel"><b>PET CATEGORY:</b></label>
+                                <label class="value"><%= data.val().category %></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="valueLabel"><b>ADDRESS:</b></label>
+                                    <br />
+                                    <p><%= data.val().address %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>DOCTOR DETAILS</h2>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <% if (doctor.val().image !== null && doctor.val().image !== undefined && doctor.val().image.length > 0){ %>
+                                <img src="<%=doctor.val().image%>" class="img-thumbnail img-circle"
+                                    style="width: 180px; height: 180px;" />
+                                <% } else {%>
+                                <img src="/public/img/find_user.png" class="img-thumbnail img-circle"
+                                    style="width: 180px; height: 180px;" />
+                                <% } %>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="valueLabel"><b>NAME:</b></label>
+                                        <label class="value"><%= doctor.val().firstName %>
+                                            <%= doctor.val().lasttName %></label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="valueLabel"><b>EMAIL:</b></label>
+                                        <label class="value"><%= doctor.val().email %></label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="valueLabel"><b>CONTACT:</b></label>
+                                        <label class="value"><%= doctor.val().phNo %></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2>CUSTOMER DETAILS</h2>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <% if (user.val().image !== null && user.val().image !== undefined && user.val().image.length > 0){ %>
+                                <img src="<%=user.val().image%>" class="img-thumbnail img-circle"
+                                    style="width: 180px; height: 180px;" />
+                                <% } else {%>
+                                <img src="/public/img/find_user.png" class="img-thumbnail img-circle"
+                                    style="width: 180px; height: 180px;" />
+                                <% } %>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="valueLabel"><b>NAME:</b></label>
+                                        <label class="value"><%= user.val().firstName %>
+                                            <%= user.val().lasttName %></label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="valueLabel"><b>EMAIL:</b></label>
+                                        <label class="value"><%= user.val().email %></label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="valueLabel"><b>CONTACT:</b></label>
+                                        <label class="value"><%= user.val().phNo %></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <!-- End Form Elements -->

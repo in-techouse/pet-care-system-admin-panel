@@ -9,6 +9,63 @@
                         Order Detail
                     </div>
                     <div class="panel-body">
+                        <h2>CUSTOMER DETAILS</h2>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="valueLabel"><b>Customer Name:</b></label>
+                                <label class="value"><%= data.val().firstName %> <%= data.val().lastName %></label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="valueLabel"><b>Customer Email:</b></label>
+                                <label class="value"><%= data.val().email %></label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="valueLabel"><b>Customer Contact:</b></label>
+                                <label class="value"><%= data.val().phoneNumber %> </label>
+                            </div>
+                        </div>
+
+                        <h2>ORDER DETAILS</h2>
+                        <hr />
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="valueLabel"><b>Total Items:</b></label>
+                                <label class="value"><%= data.val().totalItems %></label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="valueLabel"><b>Total Price:</b></label>
+                                <label class="value"><%= data.val().totalPrice %> PKR.</label>
+                            </div>
+                        </div>
+
+
+                        <h2>FOOD ITEMS DETAILS</h2>
+                        <hr />
+                        <div class="row">
+
+                            <% foods.forEach(f=> { %>
+                            <% cartItems.forEach(cart=>{%>
+                            <% if (cart.foodId === f.val().id){%>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <img src="<%= f.val().image %>" class="img-thumbnail" style="width: auto;" />
+                                    <p><%= f.val().name %></p>
+                                    <p><%= f.val().price %> PKR</p>
+                                    <p>Ordered Quantity: <%= cart.quantity %></p>
+                                </div>
+                            </div>
+                            <% } %>
+                            <%});%>
+                            <%});%>
+                        </div>
+
+
                     </div>
                 </div>
                 <!-- End Form Elements -->

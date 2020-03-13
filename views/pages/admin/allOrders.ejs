@@ -8,14 +8,26 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <td>Date</td>
-                            <td>Email</td>
-                            <td>First Name</td>
-                            <td>Last Name</td>
-                            <td>Phone Number</td>
+                            <td>Customer Name</td>
+                            <td>Customer Email</td>
+                            <td>Customer Contact</td>
+                            <td>Total Items</td>
+                            <td>Total Price</td>
+                            <td>Show Details</td>
                         </tr>
                     </thead>
                     <tbody>
+                        <% data.forEach(d=> { %>
+                        <tr>
+                            <td><%= d.val().firstName %> <%= d.val().lastName %></td>
+                            <td><%= d.val().email %></td>
+                            <td><%= d.val().phoneNumber %></td>
+                            <td><%= d.val().totalItems %></td>
+                            <td><%= d.val().totalPrice %> PKR</td>
+                            <td><a href="/admin/orderDetail?id=<%= d.val().id %>" class="btn btn-primary">Details</a>
+                            </td>
+                        </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>

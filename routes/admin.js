@@ -302,19 +302,122 @@ router.get("/allDoctors", function(req, res) {
     });
 });
 router.get("/allOrders", function(req, res) {
-  res.render("pages/admin/allOrders", { action: "allOrders" });
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+
+  firebase
+    .database()
+    .ref()
+    .child("Orders")
+    .once("value")
+    .then(d => {
+      res.render("pages/admin/allOrders", { action: "allOrders", data: d });
+    })
+    .catch(e => {
+      res.render("pages/admin/allOrders", { action: "allOrders", data: [] });
+    });
 });
 
 router.get("/orderDetail", function(req, res) {
-  res.render("pages/admin/orderDetail", { action: "" });
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+
+  firebase
+    .database()
+    .ref()
+    .child("Orders")
+    .child(req.query.id)
+    .once("value")
+    .then(d => {
+      let items = d.val().cartItems;
+      let cartItems = [];
+      for (var entry in items) {
+        let value = items[entry];
+        let cartItem = {
+          foodId: entry,
+          quantity: value
+        };
+        cartItems.push(cartItem);
+      }
+      firebase
+        .database()
+        .ref()
+        .child("Foods")
+        .once("value")
+        .then(f => {
+          res.render("pages/admin/orderDetail", {
+            action: "",
+            data: d,
+            cartItems: cartItems,
+            foods: f
+          });
+        });
+    })
+    .catch(e => {
+      res.redirect("/admin/allOrders");
+    });
 });
 
 router.get("/allAppointments", function(req, res) {
-  res.render("pages/admin/allAppointments", { action: "allAppointments" });
+  // if (!req.session.isAdmin) {
+  //   res.redirect("/");
+  // }
+
+  firebase
+    .database()
+    .ref()
+    .child("Appointments")
+    .once("value")
+    .then(d => {
+      res.render("pages/admin/allAppointments", {
+        action: "allAppointments",
+        data: d
+      });
+    })
+    .catch(e => {
+      res.render("pages/admin/allAppointments", {
+        action: "allAppointments",
+        data: []
+      });
+    });
 });
 
 router.get("/appointmentDetail", function(req, res) {
-  res.render("pages/admin/appointmentDetail", { action: "" });
+  firebase
+    .database()
+    .ref()
+    .child("Appointments")
+    .child(req.query.id)
+    .once("value")
+    .then(d => {
+      firebase
+        .database()
+        .ref()
+        .child("Users")
+        .child(d.val().doctorId)
+        .once("value")
+        .then(doc => {
+          firebase
+            .database()
+            .ref()
+            .child("Users")
+            .child(d.val().patientId)
+            .once("value")
+            .then(u => {
+              res.render("pages/admin/appointmentDetail", {
+                action: "",
+                data: d,
+                doctor: doc,
+                user: u
+              });
+            });
+        });
+    })
+    .catch(e => {
+      res.redirect("/admin/allAppointments");
+    });
 });
 
 module.exports = router;
